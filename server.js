@@ -15,8 +15,15 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-app.use(cors());
+// ✅ Allow all origins (you can restrict it to your frontend domain later)
+app.use(cors({
+  origin: "https://paknavy-muneeza.netlify.app", // or specify your frontend link like "https://paknavy-frontend.vercel.app"
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+}));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/results", express.static(path.join(__dirname, "results"))); // static serve results PDFs
 
